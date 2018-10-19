@@ -1,0 +1,250 @@
+
+#' receives a SPSS file with the evaluation data and writes a file with the absolute values for each course
+#' @importFrom  foreign read.spss
+#' @import jsonlite
+#' @import dplyr
+#' @import tidyr
+#'
+#'
+#' @param spss_file the absolute path to a SPSS file with .sav extension
+#' @param folder a path to an existing folder, where the generated files must be saved
+#'
+#' @return None
+#'
+#'
+#' @export
+#'
+#' @examples
+#'    \dontrun{
+#'    Calling jsonAbsValues on Windows operational system:
+#'    jsonAbsValues("C:\\Folder\\WS1718.sav", "C:\\Folder\\")}
+
+jsonAbsValues <- function(spss_file, folder){
+
+  #transforms spss data into a dataset
+  evaluation <- read.spss(spss_file, to.data.frame=TRUE)
+
+  #a data frame with all the factors from the dataset
+  evaluation_fac <- cbind(id = c(1:nrow(evaluation)), select(evaluation, vlidstr:mot4))
+
+  #name of the courses in the data set
+  course_names <- unique(evaluation_fac$vlidstr)
+
+  #name of the variables in the data set
+  col_names <- colnames(evaluation_fac)
+
+  #iterates a list of courses and builds a data frame with the frequency of each answear
+  for(i in 1:length(course_names)){
+
+
+    #creates a vector to be inserted as a column in the final data frame
+    vlid <- course_names[i]
+    test_name <- vlid
+    vlid <- trimws(vlid)
+
+    #chooses only rows for the current course
+    actual_data <- filter(evaluation_fac, vlidstr==test_name)
+
+    #edits json file name
+    file_name <- gsub("[[:space:]]", "_", vlid)
+    file_name <- gsub("/", "_", vlid)
+
+    #the path where json documents should be saved
+    path <- paste(folder, file_name, ".json", sep = "")
+
+    #apply summarising_fac to each of the given columns from the data set
+    vec <- data.frame(NULL)
+
+    gs <- summarising_fac(actual_data$gs, "gs")
+    gs <- as.matrix(gs)
+    gs <- type.convert(gs, as.is = FALSE)
+
+    auf1 <- summarising_fac(actual_data$auf1, "auf1")
+    auf1 <- as.matrix(auf1)
+    auf1 <- type.convert(auf1, as.is = FALSE)
+
+    auf2 <- summarising_fac(actual_data$auf2, "auf2")
+    auf2 <- as.matrix(auf2)
+    auf2 <- type.convert(auf2, as.is = FALSE)
+
+    auf3 <- summarising_fac(actual_data$auf3, "auf3")
+    auf3 <- as.matrix(auf3)
+    auf3 <- type.convert(auf3, as.is = FALSE)
+
+    auf4 <- summarising_fac(actual_data$auf4, "auf4")
+    auf4 <- as.matrix(auf4)
+    auf4 <- type.convert(auf4, as.is = FALSE)
+
+    tut1 <- summarising_fac(actual_data$tut1, "tut1")
+    tut1 <- as.matrix(tut1)
+    tut1 <- type.convert(tut1, as.is = FALSE)
+
+    tut2 <- summarising_fac(actual_data$tut2, "tut2")
+    tut2 <- as.matrix(tut2)
+    tut2 <- type.convert(tut2, as.is = FALSE)
+
+    tut3 <- summarising_fac(actual_data$tut3, "tut3")
+    tut3 <- as.matrix(tut3)
+    tut3 <- type.convert(tut3, as.is = FALSE)
+
+    tut4 <- summarising_fac(actual_data$tut4, "tut4")
+    tut4 <- as.matrix(tut4)
+    tut4 <- type.convert(tut4, as.is = FALSE)
+
+    akt1 <- summarising_fac(actual_data$akt1, "akt1")
+    akt1 <- as.matrix(akt1)
+    akt1 <- type.convert(akt1, as.is = FALSE)
+
+    akt2 <- summarising_fac(actual_data$akt2, "akt2")
+    akt2 <- as.matrix(akt2)
+    akt2 <- type.convert(akt2, as.is = FALSE)
+
+    akt3 <- summarising_fac(actual_data$akt3, "akt3")
+    akt3 <- as.matrix(akt3)
+    akt3 <- type.convert(akt3, as.is = FALSE)
+
+    akt4 <- summarising_fac(actual_data$akt4, "akt4")
+    akt4 <- as.matrix(akt4)
+    akt4 <- type.convert(akt4, as.is = FALSE)
+
+    verst1 <- summarising_fac(actual_data$verst1, "verst1")
+    verst1 <- as.matrix(verst1)
+    verst1 <- type.convert(verst1, as.is = FALSE)
+
+    verst2 <- summarising_fac(actual_data$verst2, "verst2")
+    verst2 <- as.matrix(verst2)
+    verst2 <- type.convert(verst2, as.is = FALSE)
+
+    verst3 <- summarising_fac(actual_data$verst3, "verst3")
+    verst3 <- as.matrix(verst3)
+    verst3 <- type.convert(verst3, as.is = FALSE)
+
+    verst4 <- summarising_fac(actual_data$verst4, "verst4")
+    verst4 <- as.matrix(verst4)
+    verst4 <- type.convert(verst4, as.is = FALSE)
+
+    stil1 <- summarising_fac(actual_data$stil1, "stil1")
+    stil1 <- as.matrix(stil1)
+    stil1 <- type.convert(stil1, as.is = FALSE)
+
+    stil2 <- summarising_fac(actual_data$stil2, "stil2")
+    stil2 <- as.matrix(stil2)
+    stil2 <- type.convert(stil2, as.is = FALSE)
+
+    stil3 <- summarising_fac(actual_data$stil3, "stil3")
+    stil3 <- as.matrix(stil3)
+    stil3 <- type.convert(stil3, as.is = FALSE)
+
+    stil4 <- summarising_fac(actual_data$stil4, "stil4")
+    stil4 <- as.matrix(stil4)
+    stil4 <- type.convert(stil4, as.is = FALSE)
+
+    med1 <- summarising_fac(actual_data$med1, "med1")
+    med1 <- as.matrix(med1)
+    med1 <- type.convert(med1, as.is = FALSE)
+
+    med2 <- summarising_fac(actual_data$med2, "med2")
+    med2 <- as.matrix(med2)
+    med2 <- type.convert(med2, as.is = FALSE)
+
+    med3 <- summarising_fac(actual_data$med3, "med3")
+    med3 <- as.matrix(med3)
+    med3 <- type.convert(med3, as.is = FALSE)
+
+    med4 <- summarising_fac(actual_data$med4, "med4")
+    med4 <- as.matrix(med4)
+    med4 <- type.convert(med4, as.is = FALSE)
+
+    sk1 <- summarising_fac(actual_data$sk1, "sk1")
+    sk1 <- as.matrix(sk1)
+    sk1 <- type.convert(sk1, as.is = FALSE)
+
+    sk2 <- summarising_fac(actual_data$sk2, "sk2")
+    sk2 <- as.matrix(sk2)
+    sk2 <- type.convert(sk2, as.is = FALSE)
+
+    sk3 <- summarising_fac(actual_data$sk3, "sk3")
+    sk3 <- as.matrix(sk3)
+    sk3 <- type.convert(sk3, as.is = FALSE)
+
+    sk4 <- summarising_fac(actual_data$sk4, "sk4")
+    sk4 <- as.matrix(sk4)
+    sk4 <- type.convert(sk4, as.is = FALSE)
+
+    gurt <- summarising_fac(actual_data$gurt, "gurt")
+    gurt <- as.matrix(gurt)
+    gurt <- type.convert(gurt, as.is = FALSE)
+
+    stoff <- summarising_fac(actual_data$stoff, "stoff")
+    stoff <- as.matrix(stoff)
+    stoff <- type.convert(stoff, as.is = FALSE)
+
+    zeit <- summarising_fac(actual_data$zeit, "zeit")
+    zeit <- as.matrix(zeit)
+    zeit <- type.convert(zeit, as.is = FALSE)
+
+    note <- summarising_fac(actual_data$note, "note")
+    note <- as.matrix(note)
+    note <- type.convert(note, as.is = FALSE)
+
+    regelm <- summarising_fac(actual_data$regelm, "regelm")
+    regelm <- as.matrix(regelm)
+    regelm <- type.convert(regelm, as.is = FALSE)
+
+    mot1 <- summarising_fac(actual_data$mot1, "mot1")
+    mot1 <- as.matrix(mot1)
+    mot1 <- type.convert(mot1, as.is = FALSE)
+
+    mot2 <- summarising_fac(actual_data$mot2, "mot2")
+    mot2 <- as.matrix(mot2)
+    mot2 <- type.convert(mot2, as.is = FALSE)
+
+    mot3 <- summarising_fac(actual_data$mot3, "mot3")
+    mot3 <- as.matrix(mot3)
+    mot3 <- type.convert(mot3, as.is = FALSE)
+
+    mot4 <- summarising_fac(actual_data$mot4, "mot4")
+    mot4 <- as.matrix(mot4)
+    mot4 <- type.convert(mot4, as.is = FALSE)
+
+    #Inserts all the items in a single vector to be exported
+    vec <- data.frame(vlid, gs, auf1, auf2, auf3, auf4, tut1, tut2, tut3, tut4, akt1, akt2, akt3, akt4, verst1, verst2, verst3, verst4, stil1, stil2, stil3, stil4, med1, med2, med3, med4, sk1, sk2, sk3, sk4, gurt, stoff, zeit, note, regelm, mot1, mot2, mot3, mot4)
+
+    #writes json document with indentation and unbox vector of length 1
+    write_json(vec, path, pretty = TRUE, auto_unbox = TRUE)
+
+  }
+
+}
+
+
+#receives two parameters df_fac is a column from the data set,
+#var_name the name of the variable/column
+#output is a data frame with the frequency of each answear for our variable
+summarising_fac <- function(df_fac, var_name){
+
+  df_levels <- data.frame(NULL)
+  df <- data.frame(value = df_fac)
+
+  #calculates the frequency of each different value in our column
+  temp <- summarise(group_by(df, value), numb = length(value))
+  df_levels <- append(df_levels, data.frame(temp))
+
+  #column names for the new object
+  c_names <- df_levels$value
+  c_names <- as.character(c_names)
+  c_names <- replace_na(c_names, "NA")
+  c_names <- gsub("[[:space:]]", "", c_names)
+  c_names <- paste(var_name, c_names, sep = "_")
+
+  df_levels <- as.data.frame(df_levels)
+  rownames(df_levels) <- c_names
+
+  #invert rows to columns
+  inv_df_lev <- as.data.frame(df_levels)
+  inv_df_lev <- as.data.frame(t(inv_df_lev))
+  inv_df_lev <- inv_df_lev[-1,]
+  rownames(inv_df_lev) <- NULL
+
+  inv_df_lev
+}

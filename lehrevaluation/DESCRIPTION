@@ -1,0 +1,16 @@
+Package: lehrevaluation
+Type: Package
+Title: Converts SPSS Data into JSON files
+Version: 0.1.0
+Author: Tai Linhares
+Maintainer: Tai Linhares <taianeclinhares@gmail.com>
+Description: This package receives the evaluation SPSS file and outputs 
+    the important informations for the website as JSON file format.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports: dplyr, 
+        tidyr, 
+        foreign, 
+        jsonlite
+RoxygenNote: 6.0.1

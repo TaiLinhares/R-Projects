@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1531508105075.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2996773054",
+    "id" : "868DC993",
+    "lastKnownWriteTime" : 1531511495,
+    "last_content_update" : 1531511495196,
+    "path" : "C:/Users/Tai/Uni/SoSe18/Medienerstellung/Data/lehrevaluation/R/jsonAbsValues.R",
+    "project_path" : "R/jsonAbsValues.R",
+    "properties" : {
+        "cursorPosition" : "12,2",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

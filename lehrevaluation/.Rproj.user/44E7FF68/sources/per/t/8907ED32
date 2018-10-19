@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1531508900626.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2496980862",
+    "id" : "8907ED32",
+    "lastKnownWriteTime" : 1531511618,
+    "last_content_update" : 1531511618211,
+    "path" : "C:/Users/Tai/Uni/SoSe18/Medienerstellung/Data/lehrevaluation/R/jsonMeanValues.R",
+    "project_path" : "R/jsonMeanValues.R",
+    "properties" : {
+        "cursorPosition" : "6,2",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
